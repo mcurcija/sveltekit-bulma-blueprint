@@ -1,3 +1,12 @@
+@charset "utf-8";
+
+// restore default behaviour
+$body-overflow-y: auto;
+
+// Material design icons 
+@import "../node_modules/@mdi/font/css/materialdesignicons.min.css";
+
+
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */ /* Import only what you need from Bulma */
 @import 'bulma/sass/utilities/_all';
 @import 'bulma/sass/base/_all';

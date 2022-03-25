@@ -15,9 +15,6 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		paths: {
-			"base": "/hello"
-		},
 		vite: {
 			css: {
 				preprocessorOptions: {
