@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "de.xaler.blah.twa",
+                     "sha256_cert_fingerprints": ["FF:BF:44:BC:58:98:D5:D3:A5:43:4D:D3:56:5A:FA:EA:27:B6:01:AB:BD:A6:AF:FE:6A:F7:8F:99:D4:CB:D8:5D"] }
+      }
+]
