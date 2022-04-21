@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 	const DEFAULT_NUMBERS = [1, 2, 3];
 	let numbers = DEFAULT_NUMBERS;
+	let loading: boolean;
 
 	function reset() {
 		numbers = DEFAULT_NUMBERS;
@@ -12,10 +13,10 @@
 	}
 
 	async function addRandomNumber() {
+		loading = true;
 		var response = await fetch('/api/random').then((response) => {
 			return response.json();
-		});
-
+		}).finally(() =>  loading = false);
 		// var random = Math.floor(Math.random() * 1000);
 		numbers = [...numbers, response?.random];
 	}
@@ -40,13 +41,14 @@
 					<button
 						class="control button is-light is-info"
 						on:click={addNumber}
-						title="Add following number">Next</button
-					>
+						title="Add following number">Next</button>
 					<button
 						class="control button is-light is-warning"
+						disabled={loading}
 						on:click={addRandomNumber}
-						title="Add random number">Random</button
-					>
+						title="Add random number">Random</button>
+					<span class="control icon" class:is-loading={loading}>
+					</span>
 				</p>
 			</div>
 		</nav>
