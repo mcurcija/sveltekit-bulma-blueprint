@@ -1,34 +1,39 @@
 <script lang="ts">
 	const DEFAULT_NUMBERS = [1, 2, 3];
-	let numbers = DEFAULT_NUMBERS;
-	let loading: boolean;
+
+	let numbers = $state(DEFAULT_NUMBERS);
+	let sum = $derived(numbers.reduce((t, n) => t + n, 0));
+
+	let loading: boolean = $state(false);
 
 	function reset() {
 		numbers = DEFAULT_NUMBERS;
 	}
 
 	function addNumber() {
-		// numbers.push(numbers.length + 1);
-		numbers = [...numbers, numbers[numbers.length - 1] + 1];
+		numbers.push(numbers.length + 1);
 	}
 
 	async function addRandomNumber() {
 		loading = true;
-		var response = await fetch('/api/random').then((response) => {
-			return response.json();
-		}).finally(() =>  loading = false);
-		// var random = Math.floor(Math.random() * 1000);
-		numbers = [...numbers, response?.random];
+		var response = await fetch('/api/random')
+			.then((response) => {
+				return response.json();
+			})
+			.finally(() => (loading = false));
+
+		console.log(`got ${JSON.stringify(response)}`);
+		numbers.push(response?.random);
 	}
 
-	$: sum = numbers.reduce((t, n) => t + n, 0);
+	// $: sum = numbers.reduce((t, n) => t + n, 0);
 </script>
 
 <svelte:head>
-	<title>SvelteKit Bulma Demo</title>
+	<title>SvelteKit + Bulma Demo</title>
 </svelte:head>
 
-<div class="container section">
+<div class="section content">
 	<h1 class="title has-text-centered">SvelteKit + Bulma</h1>
 
 	<h2 class="has-text-centered">
@@ -40,16 +45,16 @@
 				<p class="field">
 					<button
 						class="control button is-light is-info"
-						on:click={addNumber}
-						title="Add following number">Next</button>
+						onclick={addNumber}
+						title="Add following number">Next</button
+					>
 					<button
 						class="control button is-light is-warning"
+						class:is-loading={loading}
 						disabled={loading}
-						on:click={addRandomNumber}
+						onclick={addRandomNumber}
 						title="Add random number">Random</button>
-					<span class="control icon" class:is-loading={loading}>
-					</span>
-				</p>
+					</p>
 			</div>
 		</nav>
 	</div>
@@ -57,24 +62,24 @@
 		{numbers.join(' + ')} = {sum}
 	</div>
 	<div class="section has-text-centered">
-		<button class="button is-light is-danger" on:click={reset}>
-			<span class="icon">
-				<i class="mdi mdi-refresh" />
+		<button class="button is-light is-danger" onclick={reset}>
+			<span class="icon has-text-info">
+				<i class="fas fa-arrows-rotate"></i>
 			</span>
 			<span>Reset</span>
 		</button>
 	</div>
-	<footer class="footer">
-		<div class="has-text-centered">
-			<a href="https://kit.svelte.dev">SveleKit</a>
-			<span>|</span>
-			<a href="https://bulma.io">bulma.io</a>
-		</div>
-	</footer>
 </div>
+<footer class="footer">
+	<div class="has-text-centered">
+		<a href="https://kit.svelte.dev">SveleKit</a>
+		<span>|</span>
+		<a href="https://bulma.io">bulma.io</a>
+	</div>
+</footer>
 
 <!-- TODO this should be placed in app.scss -->
-<style>
+<!-- <style>
 	:root {
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
 			'Open Sans', 'Helvetica Neue', sans-serif;
@@ -111,4 +116,4 @@
 			max-width: none;
 		}
 	}
-</style>
+</style> -->
