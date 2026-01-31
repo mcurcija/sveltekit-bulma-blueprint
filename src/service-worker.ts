@@ -1,68 +1,62 @@
-/**
- * This service-worker file is copy from: 
- * https://github.com/NicholasPeretti/service-worker-ts-example/blob/master/src/index.ts
- *  
- */
+/// <reference types="@sveltejs/kit" />
+import { build, files, version } from '$service-worker';
 
-/**
- * Fix the self reference in order to have
- * service worker intellisense.
- * More info here:
- * https://github.com/Microsoft/TypeScript/issues/11781#issuecomment-503773748
- */
-declare var self: ServiceWorkerGlobalScope;
-export {};
+// Create a unique cache name for this deployment
+const CACHE = `cache-${version}`;
 
-import { version } from '../package.json';
+const ASSETS = [
+	...build, // the app itself
+	...files  // everything in `static`
+];
 
-const CACHE_NAME = `static-cache-${version}`;
-const filesToCache = ['/'];
-
-/**
- * Cache files on install
- */
 self.addEventListener('install', (event) => {
-	event.waitUntil(
-		(async function () {
-			const cache = await caches.open(CACHE_NAME);
-			await cache.addAll(filesToCache);
-		})()
-	);
-});
-
-/**
- * Delete outdated caches when activated
- */
-self.addEventListener('activate', (event) => {
-	self.clients.claim();
-
-	event.waitUntil(
-		(async function () {
-			// Remove old caches.
-			const promises = (await caches.keys()).map((cacheName) => {
-				if (CACHE_NAME !== cacheName) {
-					return caches.delete(cacheName);
-				}
-			});
-
-			await Promise.all<any>(promises);
-		})()
-	);
-});
-
-/**
- * Reply with cached data when possible
- */
-self.addEventListener('fetch', (event) => {
-	if (event.request.method !== 'GET') {
-		return;
+	// Create a new cache and add all files to it
+	async function addFilesToCache() {
+		const cache = await caches.open(CACHE);
+		await cache.addAll(ASSETS);
 	}
-	event.respondWith(
-		(async function () {
-			const cachedResponse = await caches.match(event.request, {
-				ignoreSearch: true
-			});
-			return cachedResponse || fetch(event.request);
-		})()
-	);
+
+	event.waitUntil(addFilesToCache());
+});
+
+self.addEventListener('activate', (event) => {
+	// Remove previous caches
+	async function deleteOldCaches() {
+		for (const key of await caches.keys()) {
+			if (key !== CACHE) await caches.delete(key);
+		}
+	}
+
+	event.waitUntil(deleteOldCaches());
+});
+
+self.addEventListener('fetch', (event) => {
+	// ignore POST requests etc
+	if (event.request.method !== 'GET') return;
+
+	async function respond() {
+		const url = new URL(event.request.url);
+		const cache = await caches.open(CACHE);
+
+		// `build` and `files` can always be served from the cache
+		if (ASSETS.includes(url.pathname)) {
+			return cache.match(url.pathname);
+		}
+
+		// for everything else, try the network first, but
+		// fall back to the cache if we're offline
+		try {
+			const response = await fetch(event.request);
+
+			if (response.status === 200) {
+				cache.put(event.request, response.clone());
+			}
+
+			return response;
+		} catch {
+			return cache.match(event.request);
+		}
+	}
+
+	event.respondWith(respond());
 });

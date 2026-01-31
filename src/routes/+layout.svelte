@@ -10,4 +10,6 @@
         <meta name="description" content="Sveltekit + Bulma Demo" />
 </svelte:head>
 
-{@render children()}
+<main>
+	{@render children()}
+</main>
