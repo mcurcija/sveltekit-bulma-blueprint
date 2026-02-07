@@ -5,9 +5,25 @@
 	let sum = $derived(numbers.reduce((t, n) => t + n, 0));
 
 	let loading: boolean = $state(false);
+	let showResetModal: boolean = $state(false);
 
 	function reset() {
 		numbers = DEFAULT_NUMBERS;
+		showResetModal = false;
+	}
+
+	function openResetModal() {
+		showResetModal = true;
+	}
+
+	function closeResetModal() {
+		showResetModal = false;
+	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && showResetModal) {
+			closeResetModal();
+		}
 	}
 
 	function addNumber() {
@@ -62,7 +78,7 @@
 		{numbers.join(' + ')} = {sum}
 	</div>
 	<div class="section has-text-centered">
-		<button class="button is-light is-danger" onclick={reset}>
+		<button class="button is-light is-danger" onclick={openResetModal}>
 			<span class="icon has-text-info">
 				<i class="fas fa-arrows-rotate"></i>
 			</span>
@@ -70,6 +86,35 @@
 		</button>
 	</div>
 </div>
+
+<svelte:window onkeydown={handleKeydown} />
+
+<!-- Reset Confirmation Modal -->
+<div class="modal" class:is-active={showResetModal}>
+	<div
+		class="modal-background"
+		onclick={closeResetModal}
+		onkeydown={(e) => e.key === 'Enter' && closeResetModal()}
+		role="button"
+		tabindex="-1"
+	></div>
+	<div class="modal-card">
+		<header class="modal-card-head">
+			<p class="modal-card-title">Confirm Reset</p>
+			<button class="delete" aria-label="close" onclick={closeResetModal}></button>
+		</header>
+		<section class="modal-card-body">
+			<p>Do you really want to reset this complex calculation?</p>
+		</section>
+		<footer class="modal-card-foot">
+			<div class="buttons">
+				<button class="button is-success" onclick={reset}>Ok</button>
+				<button class="button" onclick={closeResetModal}>Cancel</button>
+			</div>
+		</footer>
+	</div>
+</div>
+
 <footer class="footer">
 	<div class="has-text-centered">
 		<a href="https://kit.svelte.dev">SveleKit</a>
@@ -77,6 +122,33 @@
 		<a href="https://bulma.io">bulma.io</a>
 	</div>
 </footer>
+
+<style>
+	/* Compact header and footer */
+	.modal-card-head,
+	.modal-card-foot {
+		padding: 0.75rem 1rem;
+	}
+
+	/* Responsive modal width */
+	.modal-card {
+		width: 90%; /* Mobile default */
+		max-width: 100%;
+	}
+
+	@media screen and (min-width: 769px) {
+		.modal-card {
+			width: 75%; /* Tablet */
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		.modal-card {
+			width: 30%; /* Desktop */
+			min-width: 300px; /* Prevent too narrow */
+		}
+	}
+</style>
 
 <!-- TODO this should be placed in app.scss -->
 <!-- <style>
