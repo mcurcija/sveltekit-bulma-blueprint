@@ -117,7 +117,7 @@
 
 <footer class="footer">
 	<div class="has-text-centered">
-		<a href="https://kit.svelte.dev">SveleKit</a>
+		<a href="https://kit.svelte.dev">SvelteKit</a>
 		<span>|</span>
 		<a href="https://bulma.io">bulma.io</a>
 	</div>
