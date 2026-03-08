@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:bulma.io)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebSearch",
+      "WebFetch(domain:inlang.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(test -d:*)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(git show:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:bundlephobia.com)"
+    ]
+  }
+}

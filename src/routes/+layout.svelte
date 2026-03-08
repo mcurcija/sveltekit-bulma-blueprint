@@ -6,8 +6,8 @@
 </script>
 
 <svelte:head>
-        <title>Sveltekit + Bulma Demo</title>
-        <meta name="description" content="Sveltekit + Bulma Demo" />
+        <title>SvelteKit + Bulma Demo</title>
+        <meta name="description" content="SvelteKit + Bulma Demo" />
 </svelte:head>
 
 <main>

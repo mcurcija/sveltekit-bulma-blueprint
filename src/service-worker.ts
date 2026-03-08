@@ -31,7 +31,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-	// ignore POST requests etc
+	// Ignore POST requests, etc.
 	if (event.request.method !== 'GET') return;
 
 	async function respond() {

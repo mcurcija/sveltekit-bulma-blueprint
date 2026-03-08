@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	// initially will be set on server side
+	// Initially set on the server side
 	export let foo: string;
 	export let bar: string;
 </script>

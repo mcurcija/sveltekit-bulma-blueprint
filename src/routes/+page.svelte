@@ -62,14 +62,14 @@
 					<button
 						class="control button is-light is-info"
 						onclick={addNumber}
-						title="Add following number">Next</button
+						title="Add the next number">Next</button
 					>
 					<button
 						class="control button is-light is-warning"
 						class:is-loading={loading}
 						disabled={loading}
 						onclick={addRandomNumber}
-						title="Add random number">Random</button>
+						title="Add a random number">Random</button>
 					</p>
 			</div>
 		</nav>
@@ -108,7 +108,7 @@
 		</section>
 		<footer class="modal-card-foot">
 			<div class="buttons">
-				<button class="button is-success" onclick={reset}>Ok</button>
+				<button class="button is-success" onclick={reset}>OK</button>
 				<button class="button" onclick={closeResetModal}>Cancel</button>
 			</div>
 		</footer>
@@ -150,7 +150,7 @@
 	}
 </style>
 
-<!-- TODO this should be placed in app.scss -->
+<!-- TODO: This should be placed in app.scss -->
 <!-- <style>
 	:root {
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
