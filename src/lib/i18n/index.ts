@@ -1,11 +1,13 @@
-import { Tolgee, DevTools, FormatSimple } from '@tolgee/svelte';
+import { Tolgee, DevTools, FormatSimple, LanguageDetector, LanguageStorage } from '@tolgee/svelte';
 
 export const createTolgee = () => {
 	const tolgee = Tolgee()
 		.use(DevTools())
 		.use(FormatSimple())
+		.use(LanguageDetector())
+		.use(LanguageStorage())
 		.init({
-			language: 'en',
+			defaultLanguage: 'en',
 			availableLanguages: ['en', 'de'],
 			apiUrl: import.meta.env.VITE_TOLGEE_API_URL,
 			apiKey: import.meta.env.VITE_TOLGEE_API_KEY,
