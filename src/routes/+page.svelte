@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { getTranslate } from '@tolgee/svelte';
+
+	const { t } = getTranslate();
+
 	const DEFAULT_NUMBERS = [1, 2, 3];
 
 	let numbers = $state(DEFAULT_NUMBERS);
-	let sum = $derived(numbers.reduce((t, n) => t + n, 0));
+	let sum = $derived(numbers.reduce((acc, n) => acc + n, 0));
 
 	let loading: boolean = $state(false);
 	let showResetModal: boolean = $state(false);
@@ -46,14 +50,17 @@
 </script>
 
 <svelte:head>
-	<title>SvelteKit + Bulma Demo</title>
+	<title>{$t('page-title', 'SvelteKit + Bulma Demo')}</title>
 </svelte:head>
 
 <div class="section content">
-	<h1 class="title has-text-centered">SvelteKit + Bulma</h1>
+	<h1 class="title has-text-centered">{$t('home.heading', 'SvelteKit + Bulma')}</h1>
 
 	<h2 class="has-text-centered">
-		Sample website with <strong>SvelteKit</strong> and <strong>Bulma</strong>
+		{@html $t('home.subtitle', 'Sample website with {sveltekit} and {bulma}', {
+			sveltekit: '<strong>SvelteKit</strong>',
+			bulma: '<strong>Bulma</strong>'
+		})}
 	</h2>
 	<div class="section">
 		<nav class="level has-text-centered">
@@ -62,14 +69,14 @@
 					<button
 						class="control button is-light is-info"
 						onclick={addNumber}
-						title="Add the next number">Next</button
+						title={$t('button.next-title', 'Add the next number')}>{$t('button.next', 'Next')}</button
 					>
 					<button
 						class="control button is-light is-warning"
 						class:is-loading={loading}
 						disabled={loading}
 						onclick={addRandomNumber}
-						title="Add a random number">Random</button>
+						title={$t('button.random-title', 'Add a random number')}>{$t('button.random', 'Random')}</button>
 					</p>
 			</div>
 		</nav>
@@ -82,7 +89,7 @@
 			<span class="icon has-text-info">
 				<i class="fas fa-arrows-rotate"></i>
 			</span>
-			<span>Reset</span>
+			<span>{$t('button.reset', 'Reset')}</span>
 		</button>
 	</div>
 </div>
@@ -100,16 +107,16 @@
 	></div>
 	<div class="modal-card">
 		<header class="modal-card-head">
-			<p class="modal-card-title">Confirm Reset</p>
+			<p class="modal-card-title">{$t('modal.reset-title', 'Confirm Reset')}</p>
 			<button class="delete" aria-label="close" onclick={closeResetModal}></button>
 		</header>
 		<section class="modal-card-body">
-			<p>Do you really want to reset this complex calculation?</p>
+			<p>{$t('modal.reset-body', 'Do you really want to reset this complex calculation?')}</p>
 		</section>
 		<footer class="modal-card-foot">
 			<div class="buttons">
-				<button class="button is-success" onclick={reset}>OK</button>
-				<button class="button" onclick={closeResetModal}>Cancel</button>
+				<button class="button is-success" onclick={reset}>{$t('button.ok', 'OK')}</button>
+				<button class="button" onclick={closeResetModal}>{$t('button.cancel', 'Cancel')}</button>
 			</div>
 		</footer>
 	</div>

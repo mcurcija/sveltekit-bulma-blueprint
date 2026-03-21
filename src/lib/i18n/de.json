@@ -1,0 +1,14 @@
+{
+  "page-title": "SvelteKit + Bulma Demo",
+  "home.heading": "SvelteKit + Bulma",
+  "home.subtitle": "Beispiel-Website mit {sveltekit} und {bulma}",
+  "button.next": "Nächste",
+  "button.next-title": "Die nächste Zahl hinzufügen",
+  "button.random": "Zufällige",
+  "button.random-title": "Eine zufällige Zahl hinzufügen",
+  "button.reset": "Zurücksetzen",
+  "button.ok": "OK",
+  "button.cancel": "Abbrechen",
+  "modal.reset-title": "Zurücksetzen bestätigen",
+  "modal.reset-body": "Möchten Sie diese komplexe Berechnung wirklich zurücksetzen?"
+}

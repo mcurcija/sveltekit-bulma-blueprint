@@ -1,0 +1,14 @@
+{
+  "projectId": null,
+  "push": {
+    "files": [
+      {
+        "path": "./src/lib/i18n/%LANGUAGE%.json",
+        "language": "%LANGUAGE%"
+      }
+    ]
+  },
+  "pull": {
+    "path": "./src/lib/i18n"
+  }
+}
