@@ -23,7 +23,7 @@
 <TolgeeProvider {tolgee}>
 	<div slot="fallback">Loading...</div>
 	<main>
-		<div class="container mt-4">
+		<div class="container mt-4 is-flex is-justify-content-flex-end px-4">
 			<LanguageSwitcher />
 		</div>
 		{@render children()}
