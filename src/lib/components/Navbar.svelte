@@ -53,9 +53,41 @@
 	</div>
 </nav>
 
+{#if isMenuActive}
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="navbar-backdrop" onclick={closeMenu} onkeydown={closeMenu}></div>
+{/if}
+
 <style>
 	/* Make sure the logo and burger align nicely since the burger is now on the left */
 	.navbar-brand {
 		align-items: center;
+	}
+
+	/* Overlay menu on mobile instead of pushing content down */
+	@media screen and (max-width: 1023px) {
+		nav.navbar {
+			position: relative;
+		}
+
+		nav.navbar :global(.navbar-menu.is-active) {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			z-index: 30;
+			background: var(--bulma-navbar-background-color);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	.navbar-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.3);
+		z-index: 20;
 	}
 </style>
