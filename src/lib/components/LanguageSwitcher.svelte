@@ -84,3 +84,13 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	/* Prevent the dropdown from going off-screen on the left in mobile view */
+	@media screen and (max-width: 1023px) {
+		.dropdown.is-right .dropdown-menu {
+			left: 0;
+			right: auto;
+		}
+	}
+</style>
