@@ -53,46 +53,48 @@
 	<title>{$t('page-title', 'SvelteKit + Bulma Demo')}</title>
 </svelte:head>
 
-<div class="section content">
-	<h1 class="title has-text-centered">{$t('home.heading', 'SvelteKit + Bulma')}</h1>
+<section class="section">
+	<div class="container is-max-desktop content">
+		<h1 class="title has-text-centered">{$t('home.heading', 'SvelteKit + Bulma')}</h1>
 
-	<h2 class="has-text-centered">
-		{@html $t('home.subtitle', 'Sample website with {sveltekit} and {bulma}', {
-			sveltekit: '<strong>SvelteKit</strong>',
-			bulma: '<strong>Bulma</strong>'
-		})}
-	</h2>
-	<div class="section">
-		<nav class="level has-text-centered">
-			<div class="level-item">
-				<p class="field">
-					<button
-						class="control button is-light is-info"
-						onclick={addNumber}
-						title={$t('button.next-title', 'Add the next number')}>{$t('button.next', 'Next')}</button
-					>
-					<button
-						class="control button is-light is-warning"
-						class:is-loading={loading}
-						disabled={loading}
-						onclick={addRandomNumber}
-						title={$t('button.random-title', 'Add a random number')}>{$t('button.random', 'Random')}</button>
-					</p>
-			</div>
-		</nav>
+		<h2 class="has-text-centered">
+			{@html $t('home.subtitle', 'Sample website with {sveltekit} and {bulma}', {
+				sveltekit: '<strong>SvelteKit</strong>',
+				bulma: '<strong>Bulma</strong>'
+			})}
+		</h2>
+		<div class="section">
+			<nav class="level has-text-centered">
+				<div class="level-item">
+					<p class="field">
+						<button
+							class="control button is-light is-info"
+							onclick={addNumber}
+							title={$t('button.next-title', 'Add the next number')}>{$t('button.next', 'Next')}</button
+						>
+						<button
+							class="control button is-light is-warning"
+							class:is-loading={loading}
+							disabled={loading}
+							onclick={addRandomNumber}
+							title={$t('button.random-title', 'Add a random number')}>{$t('button.random', 'Random')}</button>
+						</p>
+				</div>
+			</nav>
+		</div>
+		<div class="has-text-centered">
+			{numbers.join(' + ')} = {sum}
+		</div>
+		<div class="section has-text-centered">
+			<button class="button is-light is-danger" onclick={openResetModal}>
+				<span class="icon has-text-info">
+					<i class="fas fa-arrows-rotate"></i>
+				</span>
+				<span>{$t('button.reset', 'Reset')}</span>
+			</button>
+		</div>
 	</div>
-	<div class="container has-text-centered">
-		{numbers.join(' + ')} = {sum}
-	</div>
-	<div class="section has-text-centered">
-		<button class="button is-light is-danger" onclick={openResetModal}>
-			<span class="icon has-text-info">
-				<i class="fas fa-arrows-rotate"></i>
-			</span>
-			<span>{$t('button.reset', 'Reset')}</span>
-		</button>
-	</div>
-</div>
+</section>
 
 <svelte:window onkeydown={handleKeydown} />
 

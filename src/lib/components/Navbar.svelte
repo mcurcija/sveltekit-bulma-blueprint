@@ -13,41 +13,43 @@
 </script>
 
 <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
-	<div class="navbar-brand">
-		<!-- Hamburger menu (Left upper corner) -->
-		<!-- We use `ml-0` to override the default Bulma margin that pushes it to the right -->
-		<button
-			class="navbar-burger ml-0 {isMenuActive ? 'is-active' : ''}"
-			aria-label="menu"
-			aria-expanded={isMenuActive ? 'true' : 'false'}
-			onclick={toggleMenu}
-		>
-			<span aria-hidden="true"></span>
-			<span aria-hidden="true"></span>
-			<span aria-hidden="true"></span>
-			<span aria-hidden="true"></span>
-		</button>
+	<div class="container">
+		<div class="navbar-brand">
+			<!-- Hamburger menu (Left upper corner) -->
+			<!-- We use `ml-0` to override the default Bulma margin that pushes it to the right -->
+			<button
+				class="navbar-burger ml-0 {isMenuActive ? 'is-active' : ''}"
+				aria-label="menu"
+				aria-expanded={isMenuActive ? 'true' : 'false'}
+				onclick={toggleMenu}
+			>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</button>
 
-		<!-- Application logo linked to home -->
-		<a class="navbar-item" href="/" onclick={closeMenu}>
-			<img src="/icon.svg" alt="Application Logo" />
-		</a>
-	</div>
-
-	<div class="navbar-menu {isMenuActive ? 'is-active' : ''}">
-		<div class="navbar-start">
-			<a class="navbar-item" href="/about" onclick={closeMenu}>
-				About
-			</a>
-
-			<a class="navbar-item" href="/configuration" onclick={closeMenu}>
-				Configuration
+			<!-- Application logo linked to home -->
+			<a class="navbar-item" href="/" onclick={closeMenu}>
+				<img src="/icon.svg" alt="Application Logo" />
 			</a>
 		</div>
 
-		<div class="navbar-end">
-			<div class="navbar-item">
-				<LanguageSwitcher />
+		<div class="navbar-menu {isMenuActive ? 'is-active' : ''}">
+			<div class="navbar-start">
+				<a class="navbar-item" href="/about" onclick={closeMenu}>
+					About
+				</a>
+
+				<a class="navbar-item" href="/configuration" onclick={closeMenu}>
+					Configuration
+				</a>
+			</div>
+
+			<div class="navbar-end">
+				<div class="navbar-item">
+					<LanguageSwitcher />
+				</div>
 			</div>
 		</div>
 	</div>
